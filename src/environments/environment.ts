@@ -1,10 +1,12 @@
 export const environment = {
   production: false,
   apiProtocol: 'https',
-  apiHost: 'localhost',
-  apiPort: '7298',
+  apiHost: 'audisoft-webapi-production.up.railway.app',
+  apiPort: '',
   
   get apiUrl() {
-    return `${this.apiProtocol}://${this.apiHost}:${this.apiPort}/api`;
+    const cleanHost = this.apiHost.replace(/^https?:\/\//, '');
+    const portPart = this.apiPort ? `:${this.apiPort}` : '';
+    return `${this.apiProtocol}://${cleanHost}${portPart}/api`;
   }
 };
