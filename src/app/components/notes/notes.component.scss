@@ -1,0 +1,213 @@
+.module-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+
+  .module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h3 {
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .primary-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(0, 113, 227, 0.25);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+
+      &:hover {
+        transform: translateY(-1px);
+        opacity: 0.95;
+      }
+    }
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+
+    .card {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(31, 38, 135, 0.2);
+      }
+
+      .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .badge {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 12px;
+          font-weight: 600;
+          color: var(--primary-color);
+          background: rgba(0, 113, 227, 0.1);
+          padding: 4px 10px;
+          border-radius: 20px;
+        }
+
+        .delete-btn {
+          background: transparent;
+          border: none;
+          color: #ef4444;
+          cursor: pointer;
+          opacity: 0.7;
+          transition: opacity 0.2s;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+
+      h4 {
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      p {
+        font-size: 14px;
+        color: var(--text-muted-light);
+
+        [data-theme="dark"] & {
+          color: var(--text-muted-dark);
+        }
+      }
+
+      .date, .semester, .email {
+        font-size: 12px;
+        font-weight: 500;
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: var(--text-muted-light);
+
+        [data-theme="dark"] & {
+          color: var(--text-muted-dark);
+        }
+      }
+    }
+  }
+}
+
+.status-msg {
+  text-align: center;
+  padding: 30px;
+  font-size: 14px;
+  color: var(--text-muted-light);
+
+  [data-theme="dark"] & {
+    color: var(--text-muted-dark);
+  }
+
+  &.error {
+    color: #ef4444;
+  }
+}
+
+
+.custom-search-select {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  .search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      opacity: 0.5;
+      pointer-events: none;
+      color: inherit;
+    }
+
+    input {
+      width: 100%;
+      padding: 11px 12px 11px 38px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--glass-border-light);
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom: none;
+      font-size: 14px;
+      color: inherit;
+      outline: none;
+
+      [data-theme="dark"] & {
+        background: rgba(15, 23, 42, 0.4);
+        border-color: var(--glass-border-dark);
+      }
+
+      &:focus {
+        border-color: var(--primary-color);
+      }
+    }
+  }
+
+  .dropdown-list {
+    width: 100%;
+    padding: 6px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--glass-border-light);
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    font-size: 14px;
+    color: inherit;
+    outline: none;
+    max-height: 120px;
+    overflow-y: auto;
+
+    [data-theme="dark"] & {
+      background: rgba(15, 23, 42, 0.5);
+      border-color: var(--glass-border-dark);
+    }
+
+    option {
+      padding: 8px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 2px;
+      
+      &:hover, &:checked {
+        background: var(--primary-color);
+        color: white;
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+<div class="dashboard-container">
+  <!-- Cabecera superior con controles de sesión y tema -->
+  <header class="top-bar glass-panel">
+    <div class="brand">
+      <h2>AudiSoft</h2>
+    </div>
+    <div class="actions">
+      <button class="icon-btn" (click)="toggleTheme()" title="Cambiar tema">
+        <lucide-icon [name]="isDarkMode ? SunIcon : MoonIcon" size="20"></lucide-icon>
+      </button>
+      <button class="icon-btn logout" (click)="logout()" title="Cerrar sesión">
+        <lucide-icon [name]="LogoutIcon" size="20"></lucide-icon>
+      </button>
+    </div>
+  </header>
+
+  <!-- Contenido dinámico del módulo activo -->
+  <main class="content-area">
+    <app-notes *ngIf="activeTab === 'notes'"></app-notes>
+    <app-professors *ngIf="activeTab === 'professors'"></app-professors>
+    <app-students *ngIf="activeTab === 'students'"></app-students>
+  </main>
+
+  <!-- Barra de navegación inferior flotante tipo iOS -->
+  <nav class="floating-nav glass-panel">
+    <button 
+      class="nav-item" 
+      [class.active]="activeTab === 'notes'" 
+      (click)="setTab('notes')">
+      <lucide-icon [name]="NotesIcon" size="22"></lucide-icon>
+      <span>Notas</span>
+    </button>
+
+    <button 
+      class="nav-item" 
+      [class.active]="activeTab === 'professors'" 
+      (click)="setTab('professors')">
+      <lucide-icon [name]="ProfessorsIcon" size="22"></lucide-icon>
+      <span>Profesores</span>
+    </button>
+
+    <button 
+      class="nav-item" 
+      [class.active]="activeTab === 'students'" 
+      (click)="setTab('students')">
+      <lucide-icon [name]="StudentsIcon" size="22"></lucide-icon>
+      <span>Estudiantes</span>
+    </button>
+  </nav>
+  
+  <app-toast></app-toast>
+</div>
+

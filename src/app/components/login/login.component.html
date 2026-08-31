@@ -1,0 +1,65 @@
+<div class="login-container">
+  <!-- Botón flotante para alternar Tema Claro / Oscuro -->
+  <button class="theme-toggle glass-panel" (click)="toggleTheme()" title="Cambiar tema">
+    <lucide-icon [name]="isDarkMode ? SunIcon : MoonIcon" size="20"></lucide-icon>
+  </button>
+
+  <div class="login-card glass-panel">
+    <div class="card-header">
+      <h2>{{ isRegisterMode ? 'Crear Cuenta' : 'Bienvenido' }}</h2>
+      <p>{{ isRegisterMode ? 'Regístrate para comenzar en AudiSoft' : 'Inicia sesión en tu cuenta' }}</p>
+    </div>
+
+    <!-- Mensajes de alerta -->
+    <div class="alert error" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+    <div class="alert success" *ngIf="successMessage">
+      {{ successMessage }}
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="login-form">
+      <div class="input-group">
+        <span class="input-icon">
+          <lucide-icon [name]="UserIcon" size="18"></lucide-icon>
+        </span>
+        <input 
+          type="text" 
+          [(ngModel)]="username" 
+          name="username" 
+          placeholder="Usuario" 
+          required 
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="input-group">
+        <span class="input-icon">
+          <lucide-icon [name]="LockIcon" size="18"></lucide-icon>
+        </span>
+        <input 
+          type="password" 
+          [(ngModel)]="password" 
+          name="password" 
+          placeholder="Contraseña" 
+          required 
+        />
+      </div>
+
+      <button type="submit" class="submit-btn" [disabled]="isLoading">
+        <span *ngIf="!isLoading">
+          <lucide-icon [name]="isRegisterMode ? UserPlusIcon : LoginIcon" size="18"></lucide-icon>
+          {{ isRegisterMode ? 'Registrarse' : 'Iniciar Sesión' }}
+        </span>
+        <span *ngIf="isLoading">Procesando...</span>
+      </button>
+    </form>
+
+    <div class="card-footer">
+      <p>
+        {{ isRegisterMode ? '¿Ya tienes una cuenta?' : '¿No tienes cuenta?' }}
+        <a (click)="toggleMode()">{{ isRegisterMode ? 'Inicia sesión' : 'Regístrate aquí' }}</a>
+      </p>
+    </div>
+  </div>
+</div>

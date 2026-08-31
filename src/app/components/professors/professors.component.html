@@ -1,0 +1,73 @@
+<div class="module-container">
+  <div class="module-header">
+    <h3>Nuestros Profesores</h3>
+    <button class="primary-btn" (click)="openCreateModal()">
+      <lucide-icon [name]="PlusIcon" size="18"></lucide-icon> Agregar Profesor
+    </button>
+  </div>
+
+  <div class="table-controls glass-panel">
+    <span>Mostrar:</span>
+    <select [(ngModel)]="pageSize" (change)="onPageSizeChange()">
+      <option [ngValue]="5">5</option>
+      <option [ngValue]="10">10</option>
+      <option [ngValue]="15">15</option>
+      <option [ngValue]="20">20</option>
+    </select>
+    <span>registros por página</span>
+  </div>
+
+  <div *ngIf="isLoading" class="status-msg">Cargando profesores...</div>
+
+  <!-- Al hacer clic en la tarjeta, se abre para editar -->
+  <div class="cards-grid" *ngIf="!isLoading && professors.length > 0">
+    <div class="card glass-panel clickable" *ngFor="let prof of professors" (click)="openEditModal(prof, $event)" title="Haz clic para editar">
+      <div class="card-top">
+        <span class="badge"><lucide-icon [name]="UserIcon" size="16"></lucide-icon> ID: {{ prof.id }}</span>
+        <div class="action-buttons">
+          <button class="icon-btn edit" (click)="openEditModal(prof, $event)"><lucide-icon [name]="EditIcon" size="16"></lucide-icon></button>
+          <button class="icon-btn delete" (click)="promptDelete(prof.id, $event)"><lucide-icon [name]="TrashIcon" size="16"></lucide-icon></button>
+        </div>
+      </div>
+      <h4>{{ prof.name }}</h4>
+      <p class="hint">Clic para editar información</p>
+    </div>
+  </div>
+
+  <div class="pagination-bar glass-panel" *ngIf="!isLoading">
+    <button class="page-btn" [disabled]="pageNumber === 1" (click)="changePage(-1)"><lucide-icon [name]="PrevIcon" size="18"></lucide-icon> Anterior</button>
+    <span>Página {{ pageNumber }}</span>
+    <button class="page-btn" [disabled]="!hasMoreData" (click)="changePage(1)">Siguiente <lucide-icon [name]="NextIcon" size="18"></lucide-icon></button>
+  </div>
+
+  <!-- Modal Formulario (Crear / Editar) -->
+  <div class="modal-overlay" *ngIf="isModalOpen">
+    <div class="modal-card glass-panel">
+      <div class="modal-header">
+        <h4>{{ editingId ? 'Editar Profesor' : 'Nuevo Profesor' }}</h4>
+        <button class="close-btn" (click)="closeModal()"><lucide-icon [name]="CloseIcon" size="20"></lucide-icon></button>
+      </div>
+      <div class="alert error" *ngIf="errorMessage">{{ errorMessage }}</div>
+      <div class="form-group">
+        <label>Nombre Completo</label>
+        <input type="text" [(ngModel)]="newName" placeholder="Ej. Dr. Roberto Gómez" />
+      </div>
+      <button class="submit-btn" (click)="saveProfessor()">{{ editingId ? 'Actualizar Cambios' : 'Guardar Profesor' }}</button>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmación de Eliminación Propio -->
+  <div class="modal-overlay" *ngIf="isConfirmModalOpen">
+    <div class="modal-card glass-panel confirm-modal">
+      <div class="confirm-icon-wrapper">
+        <lucide-icon [name]="AlertIcon" size="32" class="warning-icon"></lucide-icon>
+      </div>
+      <h4>¿Estás seguro?</h4>
+      <p>Esta acción eliminará al profesor permanentemente y no se podrá deshacer si tiene relaciones activas.</p>
+      <div class="confirm-actions">
+        <button class="cancel-btn" (click)="closeConfirmModal()">Cancelar</button>
+        <button class="danger-btn" (click)="confirmDelete()">Sí, Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
